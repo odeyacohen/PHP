@@ -123,6 +123,55 @@ class PdoGsb
         return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+
+    public function getFicheValidee(){
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT * from fichefrais
+            where idEtat= "VA"'
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+    // public function getFicheMP(){
+    //     $requetePrepare = PdoGSB::$monPdo->prepare(
+    //         'UPDATE ficheFrais
+    //         SET idEtat = MP
+    //         where idEtat = VA'
+    //     );
+        
+    //     $requetePrepare->execute();
+       
+
+    // }
+
+
+
+    public function getLibelle ($idFrais){
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT libelle from lignefraishorsforfait     
+            WHERE lignefraishorsforfait.id = :unIdFrais'       
+        );
+        $requetePrepare->bindParam(':unIdFrais', $idFrais, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $libelle = $requetePrepare->fetch();
+        return $libelle;
+
+    }
+
+    public function modifierHorsForfait($idFrais,$libelle){
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE lignefraishorsforfait
+            SET libelle = CONCAT("REFUSE : ", :unLibelle)
+            WHERE id = :unIdFrais' 
+        );
+        $requetePrepare->bindParam(':unIdFrais', $idFrais, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unLibelle', $libelle['libelle'], PDO::PARAM_STR);
+        $requetePrepare->execute();
+       
+    }
+
 
 
     /**

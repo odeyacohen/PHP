@@ -83,10 +83,10 @@ if ($role == 0){
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <br>Valider fiche de frais</a>
-                        <a href="index.php?uc=etatFrais&action=selectionnerMois"
+                        <a href="index.php?uc=suiviePaiement&action=selectionFiche"
                            class="btn btn-primary btn-lg" role="button">
-                            <span class="glyphicon glyphicon-list-alt"></span>
-                            <br>Afficher mes fiches de frais</a>
+                            <span class="glyphicon glyphicon-euro"></span>
+                            <br>Suivie Paiement</a>
                     </div>
                 </div>
             </div>
