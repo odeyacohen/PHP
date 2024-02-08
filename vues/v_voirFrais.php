@@ -57,7 +57,8 @@
             </thead>  
             <tbody>
             <?php
-            
+            //le onclik c du javascript = ne reactulise aps la page on reste sur la meme page
+        
             foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
                 $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
                 $date = $unFraisHorsForfait['date'];
@@ -71,6 +72,7 @@
                     <td><a href="index.php?uc=validerFrais&action=majFraisHorsForfait&idFrais=<?=$id?>"  
                     
                            onclick="return confirm('Voulez-vous vraiment modifier ce frais?');">Modifier ce frais</a></td>
+                           
                 </tr>
                 
                 <?php

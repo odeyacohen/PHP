@@ -16,9 +16,7 @@ switch ($uc) {
 case 'connexion':
     include 'controleurs/c_connexion.php';
     break;
-case 'validerFrais':
-    include 'controleurs/c_validerFrais.php';
-     break;
+
 case 'accueil':
     include 'controleurs/c_accueil.php';
     break;
@@ -34,7 +32,9 @@ case 'deconnexion':
 case 'suiviePaiement':
     include 'controleurs/c_suiviePaiement.php';
     break;
-
+case 'validerFrais':
+    include 'controleurs/c_validerFrais.php';
+     break;
 
 }
 require 'vues/v_pied.php';

@@ -22,17 +22,27 @@ switch ($action) {
 
     $mois=$_POST['lstMois'];
     $idVisiteur=$_POST['lstUser'];
+
     $_SESSION['visiteur_selection']= $idVisiteur;
     $_SESSION['mois_selection']= $mois;
-    
 
-   $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
    $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
-   $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
-   $libEtat = $lesInfosFicheFrais['libEtat'];
-   $montantValide = $lesInfosFicheFrais['montantValide'];
-   $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-   $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+
+    
+    if(empty($lesFraisHorsForfait)&& empty ( $lesFraisForfait)){
+        require 'vues/v_notifValideVide.php';
+        break;
+
+    }else{
+        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
+        $libEtat = $lesInfosFicheFrais['libEtat'];
+        $montantValide = $lesInfosFicheFrais['montantValide'];
+        $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+        $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    }
+
+
 
    
     require 'vues/v_voirFrais.php';
@@ -46,14 +56,15 @@ switch ($action) {
 
          if (lesQteFraisValides($lesFrais)) {
              $pdo->majFraisForfait($idVisiteur, $mois, $lesFrais);
-             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
-             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
+             require 'vues/v_notif.php';
         
          } else {
              ajouterErreur('Les valeurs des frais doivent être numériques');
              include 'vues/v_erreurs.php';
          }
-         require 'vues/v_notif.php';
+         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
+         
          require 'vues/v_voirFrais.php';
         
         
@@ -67,9 +78,9 @@ switch ($action) {
        $idFrais = filter_input(INPUT_GET, 'idFrais', FILTER_SANITIZE_STRING);  
        $libelle=$pdo->getLibelle($idFrais);
 
-      if (str_contains($libelle['libelle'], 'REFUSE :')){
+      if (!(str_contains($libelle['libelle'], 'REFUSE :'))){
         
-      } else {
+      
         $modifierHorsForfait= $pdo->modifierHorsForfait($idFrais,$libelle);
        }
        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);

@@ -6,8 +6,8 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 
 $mois = selectMois(date('d/m/Y'));
-$numAnnee = substr($mois, 0, 4);
-$numMois = substr($mois, 4, 2);
+// $numAnnee = substr($mois, 0, 4);
+// $numMois = substr($mois, 4, 2);
     
 switch ($action) {
 
@@ -15,6 +15,8 @@ switch ($action) {
 
         $listeVisiteur = $pdo-> selectVisiteur();
         $listeMois= $pdo->getFicheValidee();
+
+        //var_dump($listeVisiteur[0]);
 
         require 'vues/v_listeSuivie.php';
         break;
@@ -24,24 +26,30 @@ switch ($action) {
         $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
         $mois=$_POST['lstMois'];
         $idVisiteur=$_POST['lstVisiteur'];
+
          $_SESSION['visiteur_selection']= $idVisiteur;
          $_SESSION['mois_selection']= $mois;
-    
-        
-        
+
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
-        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
+        
+      if (empty($lesFraisHorsForfait) && empty($lesFraisForfait)){
+        
+   
+        require 'vues/v_notifVide.php';
+        break;
+      }
       
+      else {
+        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
         $libEtat = $lesInfosFicheFrais['libEtat'];
         $montantValide = $lesInfosFicheFrais['montantValide'];
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
         $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
-
+      }
         $numAnnee = substr($leMois, 0, 4);
         $numMois = substr($leMois, 4, 2);
-        var_dump($numMois);
-        var_dump($numAnnee);
+       
    require 'vues/v_fichePaiement.php';
     break;
 

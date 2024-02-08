@@ -101,7 +101,7 @@ class PdoGsb
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMdp', $mdp, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetch();
+        return $requetePrepare->fetch(PDO::FETCH_ASSOC);
     }
 
     public function selectVisiteur (){
@@ -111,7 +111,7 @@ class PdoGsb
             where role= 0'
         );
         $requetePrepare->execute();
-        return $requetePrepare->fetchAll();
+        return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function selectMois (){
@@ -134,17 +134,7 @@ class PdoGsb
         return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
 
     }
-    // public function getFicheMP(){
-    //     $requetePrepare = PdoGSB::$monPdo->prepare(
-    //         'UPDATE ficheFrais
-    //         SET idEtat = MP
-    //         where idEtat = VA'
-    //     );
-        
-    //     $requetePrepare->execute();
-       
-
-    // }
+    
 
 
 

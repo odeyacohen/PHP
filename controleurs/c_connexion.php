@@ -43,6 +43,7 @@ case 'valideConnexion':
         connecter($id, $nom, $prenom, $role);
         header('Location: index.php');
     }
+    
     break;
 default:
     include 'vues/v_connexion.php';
