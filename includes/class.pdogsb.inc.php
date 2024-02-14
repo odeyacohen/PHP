@@ -82,6 +82,19 @@ class PdoGsb
         return PdoGsb::$monPdoGsb;
     }
 
+    public function newInscription($login, $nom, $prenom,$idVisiteur) {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'INSERT INTO visiteur (login, nom, prenom,id) '
+            . "VALUES (:unLogin, :unNom, :unPrenom, :unId)"
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unNom', $nom, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unPrenom', $prenom, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }    
+    
+
     /**
      * Retourne les informations d'un visiteur
      *
@@ -103,6 +116,43 @@ class PdoGsb
         $requetePrepare->execute();
         return $requetePrepare->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getInfosUser($idVisiteur)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT  * '
+            . 'FROM visiteur '
+            . 'WHERE visiteur.id = :unIdVisiteur  '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+        
+    }
+
+    public function majInfosUser($idVisiteur)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'UPDATE visiteur
+            SET nom = :nouveauNom, prenom = :nouveauPrenom, adresse = :nouvelleAdresse 
+            WHERE id = :idUser 
+            AND (nom <> :nouveauNom OR prenom <> :nouveauPrenom OR adresse <> :nouvelleAdresse)');
+    
+    
+    
+    // Liaison des paramètres
+    $requetePrepare->bindParam(':nouveauNom', $nouveauNom, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':nouveauPrenom', $nouveauPrenom, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':nouvelleAdresse', $nouvelleAdresse, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $requetePrepare->execute();
+        
+        
+    }
+
+
+
+    
 
     public function selectVisiteur (){
         $requetePrepare = PdoGsb::$monPdo->prepare(

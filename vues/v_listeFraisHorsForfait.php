@@ -27,7 +27,7 @@
                            onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a></td>
                 </tr>
                 <?php
-            }
+                }
             ?>
             </tbody>  
         </table>

@@ -35,6 +35,12 @@ case 'suiviePaiement':
 case 'validerFrais':
     include 'controleurs/c_validerFrais.php';
      break;
+case 'inscription':
+    include 'controleurs/c_inscription.php';
+    break;
+case 'modifInfos':
+    include 'controleurs/c_modifInfos.php';
+    break;
 
 }
 require 'vues/v_pied.php';
