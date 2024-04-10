@@ -47,6 +47,14 @@
                                type="submit" value="Se connecter">
                     </fieldset>
                 </form>
+                <form role="form" method="post" 
+                action="index.php?uc=connexion&action=inscriptionUser">
+                <fieldset>
+                <input class="btn btn-lg btn-success btn-block"
+                               type="submit" value="S'inscrire">
+                </fieldset>
+                </form>
+
             </div>
         </div>
     </div>

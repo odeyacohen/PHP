@@ -82,15 +82,21 @@ class PdoGsb
         return PdoGsb::$monPdoGsb;
     }
 
-    public function newInscription($login, $nom, $prenom,$idVisiteur) {
+    public function newInscription($user) {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'INSERT INTO visiteur (login, nom, prenom,id) '
-            . "VALUES (:unLogin, :unNom, :unPrenom, :unId)"
+            'INSERT INTO visiteur (id, nom, prenom, login, mdp, adresse, cp, ville, dateembauche, role) '
+            . "VALUES (:unId, :unNom, :unPrenom, :unLogin,:unMdp,:uneAdresse,:unCp,:uneVille,:uneDateEmbauche,:unRole)"
         );
-        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unNom', $nom, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unPrenom', $prenom, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':unId', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $user['id'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unNom', $user['nom'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unPrenom', $user['prenom'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unLogin', $user['login'], PDO::PARAM_STR);   
+        $requetePrepare->bindParam(':unMdp', $user['mdp'], PDO::PARAM_STR);   
+        $requetePrepare->bindParam(':uneAdresse', $user['adresse'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unCp', $user['cp'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':uneVille', $user['ville'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':uneDateEmbauche', $user['dateembauche'], PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unRole', $user['role'], PDO::PARAM_STR);
         $requetePrepare->execute();
     }    
     
@@ -126,26 +132,44 @@ class PdoGsb
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetchAll(PDO::FETCH_ASSOC);
+        return $requetePrepare->fetch(PDO::FETCH_ASSOC);
         
     }
 
     public function majInfosUser($idVisiteur)
     {
+        $nom=$_POST['nom'];
+        $prenom=$_POST['prenom'];
+        $login=$_POST['login'];
+        $adresse=$_POST['adresse'];
+        $cp=$_POST['cp'];
+        $ville=$_POST['ville'];
+        $dateEmbauche=$_POST['dateembauche'];
+        echo $idVisiteur;
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'UPDATE visiteur
-            SET nom = :nouveauNom, prenom = :nouveauPrenom, adresse = :nouvelleAdresse 
-            WHERE id = :idUser 
-            AND (nom <> :nouveauNom OR prenom <> :nouveauPrenom OR adresse <> :nouvelleAdresse)');
+            SET nom = :unNom,
+             prenom = :unPrenom, 
+             adresse = :uneAdresse, 
+             login= :unLogin, 
+              cp =:unCp,
+               ville=:uneVille,
+                dateembauche=:uneDateEmbauche,
+                role=:unRole
+            WHERE id = :unIdVisiteur
+        ');
     
     
-    
-    // Liaison des paramètres
-    $requetePrepare->bindParam(':nouveauNom', $nouveauNom, PDO::PARAM_STR);
-    $requetePrepare->bindParam(':nouveauPrenom', $nouveauPrenom, PDO::PARAM_STR);
-    $requetePrepare->bindParam(':nouvelleAdresse', $nouvelleAdresse, PDO::PARAM_STR);
-    $requetePrepare->bindParam(':idUser', $idUser, PDO::PARAM_INT);
-        $requetePrepare->execute();
+    $requetePrepare->bindParam(':unNom', $nom, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unPrenom', $prenom, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':uneAdresse', $adresse, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unCp', $cp, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':uneVille', $ville, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':uneDateEmbauche', $dateEmbauche, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unRole', $role, PDO::PARAM_STR);
+    $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+    $requetePrepare->execute();
         
         
     }

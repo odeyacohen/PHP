@@ -8,15 +8,25 @@ switch ($action) {
     case 'informations':
     
     $information= $pdo->getInfosUser($idVisiteur);
-    var_dump($information);
+    //var_dump($information);
    
         
-        require 'vues/v_infosUser.php';
-        break;
+    require 'vues/v_infosUser.php';
+    break;
 
     case 'modifInfos':
+        
+        $idVisiteur=$_SESSION['idVisiteur'];
+        //var_dump($idVisiteur);
+        
+        //var_dump($ville);
+
+        
+        $infos= $pdo->majInfosUser($idVisiteur,
+    
+        );
+
         $information= $pdo->getInfosUser($idVisiteur);
-        $information= $pdo->majInfosUser($idVisiteur);
         require 'vues/v_infosUser.php';
         break;
 

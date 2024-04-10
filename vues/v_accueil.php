@@ -51,6 +51,10 @@ if ($role == 0){
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Afficher mes fiches de frais</a>
+                        <a href="index.php?uc=modifInfos&action=informations"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            <br>Mes informations</a>
                     </div>
                 </div>
             </div>
