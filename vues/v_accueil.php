@@ -90,7 +90,7 @@ if ($role == 0){
                         <a href="index.php?uc=suiviePaiement&action=selectionFiche"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-euro"></span>
-                            <br>Suivie Paiement</a>
+                            <br>Suivi Paiement</a>
                     </div>
                 </div>
             </div>
