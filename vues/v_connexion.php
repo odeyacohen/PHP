@@ -13,6 +13,7 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
+$mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_STRING);
 ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -42,6 +43,11 @@
                                        placeholder="Mot de passe" name="mdp"
                                        type="password" maxlength="45">
                             </div>
+                            <?php
+ 
+ 
+
+ ?>
                         </div>
                         <input class="btn btn-lg btn-success btn-block"
                                type="submit" value="Se connecter">

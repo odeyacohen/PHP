@@ -41,6 +41,9 @@ case 'inscription':
 case 'modifInfos':
     include 'controleurs/c_modifInfos.php';
     break;
+case 'afficheInfos':
+    include 'controleurs/c_afficheInfos.php';
+    break;
 
 }
 require 'vues/v_pied.php';

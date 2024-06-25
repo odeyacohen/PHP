@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "$_acdefglmnpstv",
-  1: "pt",
+  0: "$_acdefglmnpsv",
+  1: "p",
   2: "g",
-  3: "cft",
-  4: "_acdeglmnstv",
+  3: "cf",
+  4: "_acdeglmnsv",
   5: "$e"
 };
 

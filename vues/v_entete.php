@@ -130,6 +130,43 @@
                     </div>
                 </div>
             </div>
+            <?php } 
+            if ($role==2){                   
+                    ?>
+                     <div class="header">
+                <div class="row vertical-align">
+                    <div class="col-md-4">
+                        <h1>
+                            <img src="./images/logo.jpg" class="img-responsive" 
+                                 alt="Laboratoire Galaxy-Swiss Bourdin" 
+                                 title="Laboratoire Galaxy-Swiss Bourdin">
+                        </h1>
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="nav nav-pills pull-right" role="tablist">
+                            <li <?php if (!$uc || $uc == 'accueil') { ?>class="active" <?php } ?>>
+                                <a href="index.php">
+                                    <span class="glyphicon glyphicon-home"></span>
+                                    Accueil
+                                </a>
+                            </li>
+                            <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=afficheInfos&action=informations">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    Afficher les informations
+                                </a>
+                            <li 
+                                        <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
+                                            <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
+                                                <span class="glyphicon glyphicon-log-out"></span>
+                                                Déconnexion
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <?php } ?>
 
             <?php

@@ -21,6 +21,7 @@ if (!$uc) {
 
 switch ($action) {
 case 'demandeConnexion':
+    $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_STRING);
     include 'vues/v_connexion.php';
     break;
 case 'valideConnexion':
@@ -67,7 +68,8 @@ default:
                 "dateEmbauche" => ($_POST['dateembauche']),
                 "role" => ($_POST['role']),
             ];
-            var_dump($user);
+            
+           // var_dump($user);
             $nom=$_POST['nom'];
             $prenom=$_POST['prenom'];
             $login=$_POST['login'];
@@ -77,17 +79,25 @@ default:
             $ville=$_POST['ville'];
             $dateEmbauche=$_POST['dateembauche'];
             $role=$_POST['role'];
-            $mdp=password_hash($_POST['mdp'],PASSWORD_BCRYPT);
-    
-    
-    
-    
-        $inscription= $pdo->newInscription($user)  ;
-        require 'vues/v_notifInscription.php';
-        require 'vues/v_connexion.php';
-        break;
-        
-    
-    
-    
+            $mdp=($_POST['mdp']);
+            //$mdp=password_hash($_POST['mdp'],PASSWORD_BCRYPT);
+            
+
+            $number=$pdo->chekNumber($mdp);
+            $Maj=$pdo->checkMaj($mdp);
+            $special=$pdo->validTaille($mdp);
+            
+
+            if($number && $Maj && $special){           
+            $utilisateurNew=$pdo->newInscription($user);
+            require 'vues/v_connexion.php';
+           // echo 'reussi';
+            } else {
+                require 'vues/v_notifEchec.php';
+                require 'vues/v_inscription.php';
+                //echo "KO";
+            }
+         
+            
+
 }

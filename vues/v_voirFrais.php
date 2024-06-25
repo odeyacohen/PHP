@@ -8,12 +8,10 @@
     <h3>Eléments forfaitisés</h3>
     <div class="col-md-4">
         <form method="post" 
-              action="index.php?uc=validerFrais&action=majFraisForfait" 
-              
+              action="index.php?uc=validerFrais&action=majFraisForfait"               
               role="form">
             <fieldset>       
-                <?php
-                
+                <?php                
                     foreach ($lesFraisForfait as $unFrais) {
                     $idFrais = $unFrais['idfrais'];
                     $libelle = htmlspecialchars($unFrais['libelle']);
@@ -24,18 +22,17 @@
                                name="lesFrais[<?php echo $idFrais ?>]"
                                size="10" maxlength="5" 
                                value="<?php echo $quantite ?>" 
-                               class="form-control">
-                              
+                               class="form-control"> 
+    
                     </div>
                     <?php
-                }
-            
-            
+                }           
                 ?>
                 
                 <button class="btn btn-success" type="submit">Modifier</button>
                 <button class="btn btn-danger" type="reset">Effacer</button>
             </fieldset>
+
         </form>
     </div>
 </div>

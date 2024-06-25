@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class Test2 extends TestCase{
+class Test3 extends TestCase{
     public function testMonTest(){
         require_once 'includes/class.pdogsb.inc.php';
         $pdo_test = PdoGsb::getPdoGsb();

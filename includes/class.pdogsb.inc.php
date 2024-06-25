@@ -74,6 +74,35 @@ class PdoGsb
      *
      * @return l'unique objet de la classe PdoGsb
      */
+    function checkMaj($mdp){
+        for ($i=0; $i<strlen($mdp);$i++){
+            // lire d => 
+            if ($mdp[$i]==strtoupper($mdp[$i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+     public function chekNumber($mdp){
+        for ($i=0; $i<strlen($mdp);$i++){
+            if (is_numeric($mdp[$i])){ 
+                return true; 
+            }
+        }
+            return false;
+             }
+
+
+     public function validTaille($mdp)
+     {
+        if(strlen($mdp)<9){
+           return false;
+        } else{
+            return true;            
+        }}
+
     public static function getPdoGsb()
     {
         if (PdoGsb::$monPdoGsb == null) {
@@ -172,6 +201,15 @@ class PdoGsb
     $requetePrepare->execute();
         
         
+    }
+    public function selectUser (){
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT *
+            FROM visiteur
+            '
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetch(PDO::FETCH_ASSOC);
     }
 
 
